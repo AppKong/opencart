@@ -1,0 +1,12 @@
+---
+ deploy_on:
+   - comment
+ build:
+   commands:
+     - "make"
+   image: "testrigor/build-env"
+ compose: docker-compose.yml
+ setup: 
+   - "make reset"
+ postfix: ""
+
