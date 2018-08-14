@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: mariadb
+    image: mariadb
+    ports:
+      - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: mariaSql
+      MYSQL_DATABASE: opencart
+    restart: always
+
+  web:
+    container_name: opencart
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_PASSWD: mariaSql
+      DB_NAME: opencart
+      DB_SERVER: mysql
+    ports:
+      - "80:80"
+    links:
+      - mysql:database
+    volumes:
+      - ./upload:/var/www/html/
+    restart: always
+
